@@ -1,0 +1,71 @@
+﻿@model GodwinPortfolio.Models.PortfolioProfile
+
+@{
+    ViewData["Title"] = "Home";
+}
+
+<section class="hero-section">
+    <div class="container">
+
+        <div class="row align-items-center min-vh-75">
+
+            <div class="col-lg-8">
+
+                <span class="badge bg-primary mb-3">
+                    Backend Developer & DevOps Engineer
+                </span>
+
+                <h1 class="display-3 fw-bold">
+                    @Model.Name
+                </h1>
+
+                <p class="lead mt-4">
+                    @Model.Summary
+                </p>
+
+                <div class="mt-4">
+
+                    <a asp-action="Projects"
+                       class="btn btn-primary btn-lg me-2">
+                        View My Projects
+                    </a>
+
+                    <a asp-action="TaxCalculator"
+                       class="btn btn-outline-light btn-lg">
+                        Try Tax Calculator
+                    </a>
+
+                </div>
+
+            </div>
+
+            <div class="col-lg-4">
+                <div class="profile-card shadow-lg">
+
+                    <h3>Backend Engineering</h3>
+
+                    <p>
+                        Building secure, scalable and maintainable
+                        backend systems using modern .NET technologies.
+                    </p>
+
+                    <hr />
+
+                    <p class="mb-1">
+                        <strong>Location:</strong>
+                    </p>
+
+                    <p>@Model.Location</p>
+
+                    <p class="mb-1">
+                        <strong>Email:</strong>
+                    </p>
+
+                    <p>@Model.Email</p>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>

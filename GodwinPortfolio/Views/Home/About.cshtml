@@ -1,0 +1,66 @@
+﻿@model GodwinPortfolio.Models.PortfolioProfile
+
+@{
+    ViewData["Title"] = "About";
+}
+
+<div class="container py-5">
+
+    <h1 class="display-5 fw-bold">
+        About Me
+    </h1>
+
+    <hr />
+
+    <div class="row">
+
+        <div class="col-lg-8">
+
+            <p class="lead">
+                @Model.Summary
+            </p>
+
+            <p>
+                My development journey began with Node.js, progressed
+                through NestJS and later moved into ASP.NET Core and C#,
+                where I focus on building robust and scalable backend
+                applications.
+            </p>
+
+            <p>
+                My engineering interests include clean architecture,
+                CQRS, cloud deployment, Docker, CI/CD, application
+                monitoring and distributed backend systems.
+            </p>
+
+        </div>
+
+        <div class="col-lg-4">
+
+            <div class="card shadow-sm">
+
+                <div class="card-body">
+
+                    <h4>Education</h4>
+
+                    <p>
+                        @Model.Education
+                    </p>
+
+                    <h4 class="mt-4">
+                        Location
+                    </h4>
+
+                    <p>
+                        @Model.Location
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

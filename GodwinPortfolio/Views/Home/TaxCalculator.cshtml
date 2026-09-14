@@ -1,0 +1,283 @@
+﻿@model GodwinPortfolio.Models.TaxCalculatorViewModel
+
+@{
+    ViewData["Title"] = "Nigeria Tax Calculator";
+}
+
+<div class="container py-5">
+
+    <div class="row">
+
+        <div class="col-lg-8">
+
+            <h1 class="display-5 fw-bold">
+                Nigeria Personal Income Tax Calculator
+            </h1>
+
+            <p class="lead">
+                Estimate personal income tax using the Nigerian
+                individual income-tax bands applicable from 2026.
+            </p>
+
+            <div class="alert alert-info">
+                This calculator is for educational purposes and is not
+                professional tax advice.
+            </div>
+
+            <form asp-action="TaxCalculator"
+                  method="post"
+                  class="card shadow-sm">
+
+                @Html.AntiForgeryToken()
+
+                <div class="card-body">
+
+                    <div asp-validation-summary="ModelOnly"
+                         class="text-danger">
+                    </div>
+
+                    <div class="mb-3">
+
+                        <label asp-for="AnnualGrossIncome"
+                               class="form-label">
+                        </label>
+
+                        <input asp-for="AnnualGrossIncome"
+                               class="form-control"
+                               placeholder="e.g. 5000000" />
+
+                        <span asp-validation-for="AnnualGrossIncome"
+                              class="text-danger">
+                        </span>
+
+                    </div>
+
+                    <div class="mb-3">
+
+                        <label asp-for="AnnualRent"
+                               class="form-label">
+                        </label>
+
+                        <input asp-for="AnnualRent"
+                               class="form-control" />
+
+                    </div>
+
+                    <div class="mb-3">
+
+                        <label asp-for="PensionContribution"
+                               class="form-label">
+                        </label>
+
+                        <input asp-for="PensionContribution"
+                               class="form-control" />
+
+                    </div>
+
+                    <div class="mb-3">
+
+                        <label asp-for="NhfContribution"
+                               class="form-label">
+                        </label>
+
+                        <input asp-for="NhfContribution"
+                               class="form-control" />
+
+                    </div>
+
+                    <div class="mb-3">
+
+                        <label asp-for="NhisContribution"
+                               class="form-label">
+                        </label>
+
+                        <input asp-for="NhisContribution"
+                               class="form-control" />
+
+                    </div>
+
+                    <div class="mb-3">
+
+                        <label asp-for="LifeInsurance"
+                               class="form-label">
+                        </label>
+
+                        <input asp-for="LifeInsurance"
+                               class="form-control" />
+
+                    </div>
+
+                    <div class="mb-3">
+
+                        <label asp-for="MortgageInterest"
+                               class="form-label">
+                        </label>
+
+                        <input asp-for="MortgageInterest"
+                               class="form-control" />
+
+                    </div>
+
+                    <button type="submit"
+                            class="btn btn-primary btn-lg">
+                        Calculate Tax
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+        @if (Model.HasResult)
+        {
+            <div class="col-lg-4 mt-4 mt-lg-0">
+
+                <div class="card shadow-lg border-primary">
+
+                    <div class="card-header bg-primary text-white">
+                        Tax Result
+                    </div>
+
+                    <div class="card-body">
+
+                        <p>
+                            <strong>
+                                Gross Income
+                            </strong>
+
+                            <br />
+
+                            ₦@Model.AnnualGrossIncome.ToString("N2")
+                        </p>
+
+                        <p>
+                            <strong>
+                                Rent Relief
+                            </strong>
+
+                            <br />
+
+                            ₦@Model.RentRelief.ToString("N2")
+                        </p>
+
+                        <p>
+                            <strong>
+                                Total Deductions
+                            </strong>
+
+                            <br />
+
+                            ₦@Model.TotalDeductions.ToString("N2")
+                        </p>
+
+                        <p>
+                            <strong>
+                                Chargeable Income
+                            </strong>
+
+                            <br />
+
+                            ₦@Model.ChargeableIncome.ToString("N2")
+                        </p>
+
+                        <hr />
+
+                        <h3>
+                            Annual Tax
+                        </h3>
+
+                        <p class="display-6 text-danger">
+                            ₦@Model.AnnualTax.ToString("N2")
+                        </p>
+
+                        <h5>
+                            Estimated Monthly Tax
+                        </h5>
+
+                        <p>
+                            ₦@Model.MonthlyTax.ToString("N2")
+                        </p>
+
+                        <p>
+                            Effective Tax Rate:
+                            <strong>
+                                @Model.EffectiveTaxRate.ToString("N2")%
+                            </strong>
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+        }
+
+    </div>
+
+    <div class="card mt-5 shadow-sm">
+
+        <div class="card-body">
+
+            <h3>
+                2026 Nigerian Tax Bands
+            </h3>
+
+            <table class="table table-striped">
+
+                <thead>
+                    <tr>
+                        <th>Band</th>
+                        <th>Rate</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    <tr>
+                        <td>First ₦800,000</td>
+                        <td>0%</td>
+                    </tr>
+
+                    <tr>
+                        <td>Next ₦2,200,000</td>
+                        <td>15%</td>
+                    </tr>
+
+                    <tr>
+                        <td>Next ₦9,000,000</td>
+                        <td>18%</td>
+                    </tr>
+
+                    <tr>
+                        <td>Next ₦13,000,000</td>
+                        <td>21%</td>
+                    </tr>
+
+                    <tr>
+                        <td>Next ₦25,000,000</td>
+                        <td>23%</td>
+                    </tr>
+
+                    <tr>
+                        <td>Above ₦50,000,000</td>
+                        <td>25%</td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+            <small class="text-muted">
+                Based on the Nigeria Tax Act 2025, Fourth Schedule.
+            </small>
+
+        </div>
+
+    </div>
+
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

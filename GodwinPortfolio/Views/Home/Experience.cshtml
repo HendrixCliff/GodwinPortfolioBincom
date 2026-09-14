@@ -1,0 +1,58 @@
+﻿@model List<GodwinPortfolio.Models.Experience>
+
+@{
+    ViewData["Title"] = "Experience";
+}
+
+<div class="container py-5">
+
+    <h1 class="display-5 fw-bold mb-4">
+        Work Experience
+    </h1>
+
+    @foreach (var experience in Model)
+    {
+        <div class="card shadow-sm mb-4">
+
+            <div class="card-body">
+
+                <h2>
+                    @experience.Role
+                </h2>
+
+                <h5 class="text-primary">
+                    @experience.Company
+                </h5>
+
+                <p class="text-muted">
+                    @experience.Period
+                </p>
+
+                <p>
+                    @experience.Description
+                </p>
+
+                <h5>Key Achievements</h5>
+
+                <ul>
+                    @foreach (var highlight in experience.Highlights)
+                    {
+                        <li>@highlight</li>
+                    }
+                </ul>
+
+                <h5>Technologies</h5>
+
+                @foreach (var technology in experience.Technologies)
+                {
+                    <span class="badge bg-secondary me-1 mb-1">
+                        @technology
+                    </span>
+                }
+
+            </div>
+
+        </div>
+    }
+
+</div>

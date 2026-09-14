@@ -1,0 +1,49 @@
+﻿@model List<GodwinPortfolio.Models.Project>
+
+@{
+    ViewData["Title"] = "Projects";
+}
+
+<div class="container py-5">
+
+    <h1 class="display-5 fw-bold mb-4">
+        Projects
+    </h1>
+
+    <div class="row">
+
+        @foreach (var project in Model)
+        {
+            <div class="col-lg-4 mb-4">
+
+                <div class="card project-card h-100 shadow-sm">
+
+                    <div class="card-body">
+
+                        <h3>
+                            @project.Name
+                        </h3>
+
+                        <p>
+                            @project.Description
+                        </p>
+
+                        <hr />
+
+                        @foreach (var technology in project.Technologies)
+                        {
+                            <span class="badge bg-primary me-1 mb-1">
+                                @technology
+                            </span>
+                        }
+
+                    </div>
+
+                </div>
+
+            </div>
+        }
+
+    </div>
+
+</div>
