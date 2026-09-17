@@ -12,5 +12,4 @@ public sealed class ApplicationDbContext : DbContext
     }
 
     public DbSet<GalleryItem> GalleryItems => Set<GalleryItem>();
-    
 }

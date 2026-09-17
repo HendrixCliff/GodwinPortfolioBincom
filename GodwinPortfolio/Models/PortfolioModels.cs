@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+
 namespace GodwinPortfolio.Models;
 
 public sealed class PortfolioProfile
