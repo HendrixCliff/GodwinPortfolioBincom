@@ -1,0 +1,108 @@
+﻿@model List<GodwinPortfolio.Models.GalleryItem>
+
+@{
+    ViewData["Title"] = "Photo Gallery";
+}
+
+<div class="container py-5">
+
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 gap-3">
+
+        <div>
+
+            <h1 class="display-5 fw-bold">
+                Photo Gallery
+            </h1>
+
+            <p class="text-muted mb-0">
+                Portfolio images and project visuals.
+            </p>
+
+        </div>
+
+        <a asp-controller="Gallery"
+           asp-action="Upload"
+           class="btn btn-primary">
+            Upload Image
+        </a>
+
+    </div>
+
+    @if (TempData["SuccessMessage"] is string successMessage)
+    {
+        <div class="alert alert-success">
+            @successMessage
+        </div>
+    }
+
+    @if (Model.Count == 0)
+    {
+        <div class="text-center py-5 border rounded bg-light">
+
+            <h3>
+                No gallery images yet.
+            </h3>
+
+            <p class="text-muted mb-3">
+                Upload your first portfolio image.
+            </p>
+
+            <a asp-controller="Gallery"
+               asp-action="Upload"
+               class="btn btn-primary">
+                Upload First Image
+            </a>
+
+        </div>
+    }
+    else
+    {
+        <div class="row g-4">
+
+            @foreach (var item in Model)
+            {
+                <div class="col-sm-6 col-lg-4">
+
+                    <div class="card h-100 shadow-sm">
+
+                        <img src="@item.ImagePath"
+                             class="card-img-top gallery-image"
+                             alt="@item.Title"
+                             loading="lazy" />
+
+                        <div class="card-body">
+
+                            <h5 class="card-title">
+                                @item.Title
+                            </h5>
+
+                            @if (!string.IsNullOrWhiteSpace(
+                                                item.Description))
+                            {
+                                <p class="card-text text-muted">
+                                    @item.Description
+                                </p>
+                            }
+
+                        </div>
+
+                        <div class="card-footer bg-white border-0">
+
+                            <small class="text-muted">
+                                Uploaded
+                                @item.UploadedAt
+                                .ToLocalTime()
+                                .ToString("dd MMM yyyy")
+                            </small>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            }
+
+        </div>
+    }
+
+</div>

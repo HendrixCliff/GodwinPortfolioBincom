@@ -8,28 +8,41 @@ namespace GodwinPortfolio.Controllers;
 public sealed class HomeController : Controller
 {
     private readonly NigeriaTaxCalculator _taxCalculator;
+    private readonly IGalleryService _galleryService;
 
     public HomeController(
-        NigeriaTaxCalculator taxCalculator)
+        NigeriaTaxCalculator taxCalculator,
+        IGalleryService galleryService)
     {
         _taxCalculator = taxCalculator;
+        _galleryService = galleryService;
     }
 
-    public IActionResult Index()
+    [HttpGet]
+    public async Task<IActionResult> Index()
     {
-        return View(PortfolioData.BuildProfile());
+        var model = new HomeIndexViewModel
+        {
+            Profile = PortfolioData.BuildProfile(),
+            GalleryItems = await _galleryService.GetAllAsync()
+        };
+
+        return View(model);
     }
 
+    [HttpGet]
     public IActionResult About()
     {
         return View(PortfolioData.BuildProfile());
     }
 
+    [HttpGet]
     public IActionResult Experience()
     {
         return View(PortfolioData.BuildExperience());
     }
 
+    [HttpGet]
     public IActionResult Projects()
     {
         return View(PortfolioData.BuildProjects());

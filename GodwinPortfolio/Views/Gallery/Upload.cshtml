@@ -1,0 +1,127 @@
+﻿@{
+    ViewData["Title"] = "Upload Image";
+}
+
+<div class="container py-5">
+
+    <div class="row justify-content-center">
+
+        <div class="col-lg-7">
+
+            <div class="card shadow-sm">
+
+                <div class="card-body p-4">
+
+                    <h1 class="h2 fw-bold mb-2">
+                        Upload Gallery Image
+                    </h1>
+
+                    <p class="text-muted mb-4">
+                        Add an image to your portfolio gallery.
+                    </p>
+
+                    <form asp-controller="Gallery"
+                          asp-action="Upload"
+                          method="post"
+                          enctype="multipart/form-data">
+
+                        @Html.AntiForgeryToken()
+
+                        <div class="mb-3">
+
+                            <label for="title"
+                                   class="form-label">
+                                Image Title
+                            </label>
+
+                            <input type="text"
+                                   id="title"
+                                   name="title"
+                                   class="form-control"
+                                   maxlength="150"
+                                   required
+                                   value="@ViewData["TitleValue"]" />
+
+                            @Html.ValidationMessage(
+                            "Title",
+                                                        new { @class = "text-danger" })
+
+                        </div>
+
+                        <div class="mb-3">
+
+                            <label for="description"
+                                   class="form-label">
+                                Description
+                            </label>
+
+                            <textarea id="description"
+                                      name="description"
+                                      class="form-control"
+                                      rows="4"
+                                      maxlength="500">@ViewData["DescriptionValue"]</textarea>
+
+                            @Html.ValidationMessage(
+                                                        "Description",
+                                                        new { @class = "text-danger" })
+
+                        </div>
+
+                        <div class="mb-4">
+
+                            <label for="image"
+                                   class="form-label">
+                                Select Image
+                            </label>
+
+                            <input type="file"
+                                   id="image"
+                                   name="image"
+                                   class="form-control"
+                                   accept=".jpg,.jpeg,.png,.gif,.webp"
+                                   required />
+
+                            <div class="form-text">
+                                Maximum size: 5 MB.
+                                Allowed formats: JPG, JPEG, PNG, GIF and WEBP.
+                            </div>
+
+                            @Html.ValidationMessage(
+                                                        "Image",
+                                                        new { @class = "text-danger" })
+
+                        </div>
+
+                        @if (!ViewData.ModelState.IsValid)
+                        {
+                            <div class="alert alert-danger">
+                                Please correct the errors above.
+                            </div>
+                        }
+
+                        <div class="d-flex gap-2">
+
+                            <button type="submit"
+                                    class="btn btn-primary">
+                                Upload Image
+                            </button>
+
+                            <a asp-controller="Gallery"
+                               asp-action="Index"
+                               class="btn btn-outline-secondary">
+                                Cancel
+                            </a>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
