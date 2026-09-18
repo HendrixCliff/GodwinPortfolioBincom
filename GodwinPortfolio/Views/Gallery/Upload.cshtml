@@ -1,4 +1,6 @@
-﻿@{
+﻿@model GodwinPortfolio.Models.GalleryUploadViewModel
+
+@{
     ViewData["Title"] = "Upload Image";
 }
 
@@ -27,77 +29,68 @@
 
                         @Html.AntiForgeryToken()
 
+                        <div asp-validation-summary="All"
+                             class="alert alert-danger"
+                             role="alert">
+                        </div>
+
                         <div class="mb-3">
 
-                            <label for="title"
+                            <label asp-for="Title"
                                    class="form-label">
                                 Image Title
                             </label>
 
-                            <input type="text"
-                                   id="title"
-                                   name="title"
+                            <input asp-for="Title"
                                    class="form-control"
-                                   maxlength="150"
-                                   required
-                                   value="@ViewData["TitleValue"]" />
+                                   maxlength="150" />
 
-                            @Html.ValidationMessage(
-                            "Title",
-                                                        new { @class = "text-danger" })
+                            <span asp-validation-for="Title"
+                                  class="text-danger">
+                            </span>
 
                         </div>
 
                         <div class="mb-3">
 
-                            <label for="description"
+                            <label asp-for="Description"
                                    class="form-label">
                                 Description
                             </label>
 
-                            <textarea id="description"
-                                      name="description"
+                            <textarea asp-for="Description"
                                       class="form-control"
                                       rows="4"
-                                      maxlength="500">@ViewData["DescriptionValue"]</textarea>
+                                      maxlength="500"></textarea>
 
-                            @Html.ValidationMessage(
-                                                        "Description",
-                                                        new { @class = "text-danger" })
+                            <span asp-validation-for="Description"
+                                  class="text-danger">
+                            </span>
 
                         </div>
 
                         <div class="mb-4">
 
-                            <label for="image"
+                            <label asp-for="Image"
                                    class="form-label">
                                 Select Image
                             </label>
 
-                            <input type="file"
-                                   id="image"
-                                   name="image"
+                            <input asp-for="Image"
+                                   type="file"
                                    class="form-control"
-                                   accept=".jpg,.jpeg,.png,.gif,.webp"
-                                   required />
+                                   accept=".jpg,.jpeg,.png,.gif,.webp" />
 
                             <div class="form-text">
                                 Maximum size: 5 MB.
                                 Allowed formats: JPG, JPEG, PNG, GIF and WEBP.
                             </div>
 
-                            @Html.ValidationMessage(
-                                                        "Image",
-                                                        new { @class = "text-danger" })
+                            <span asp-validation-for="Image"
+                                  class="text-danger">
+                            </span>
 
                         </div>
-
-                        @if (!ViewData.ModelState.IsValid)
-                        {
-                            <div class="alert alert-danger">
-                                Please correct the errors above.
-                            </div>
-                        }
 
                         <div class="d-flex gap-2">
 
@@ -125,3 +118,7 @@
     </div>
 
 </div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

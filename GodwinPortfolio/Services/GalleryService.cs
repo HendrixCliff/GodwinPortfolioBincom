@@ -19,15 +19,6 @@ public sealed class GalleryService : IGalleryService
             ".webp"
         };
 
-    private static readonly HashSet<string> AllowedContentTypes =
-        new(StringComparer.OrdinalIgnoreCase)
-        {
-            "image/jpeg",
-            "image/png",
-            "image/gif",
-            "image/webp"
-        };
-
     private const long MaximumFileSize = 5 * 1024 * 1024;
 
     public GalleryService(
@@ -51,58 +42,58 @@ public sealed class GalleryService : IGalleryService
         string? description,
         IFormFile? image)
     {
-        title = title.Trim();
-        description = description?.Trim();
-
-        if (string.IsNullOrWhiteSpace(title))
-        {
-            return (
-                false,
-                "Please enter an image title.");
-        }
-
-        if (title.Length > 150)
-        {
-            return (
-                false,
-                "The image title cannot exceed 150 characters.");
-        }
-
-        if (!string.IsNullOrWhiteSpace(description) &&
-            description.Length > 500)
-        {
-            return (
-                false,
-                "The image description cannot exceed 500 characters.");
-        }
-
-        var validationError = ValidateImage(image);
-
-        if (validationError is not null)
-        {
-            return (false, validationError);
-        }
-
-        var uploadFolder = Path.Combine(
-            _environment.WebRootPath,
-            "uploads",
-            "gallery");
-
-        Directory.CreateDirectory(uploadFolder);
-
-        var extension = Path.GetExtension(
-            image!.FileName)
-            .ToLowerInvariant();
-
-        var uniqueFileName =
-            $"{Guid.NewGuid():N}{extension}";
-
-        var physicalFilePath = Path.Combine(
-            uploadFolder,
-            uniqueFileName);
-
         try
         {
+            title = title.Trim();
+            description = description?.Trim();
+
+            if (string.IsNullOrWhiteSpace(title))
+            {
+                return (
+                    false,
+                    "Please enter an image title.");
+            }
+
+            if (title.Length > 150)
+            {
+                return (
+                    false,
+                    "The image title cannot exceed 150 characters.");
+            }
+
+            if (!string.IsNullOrWhiteSpace(description) &&
+                description.Length > 500)
+            {
+                return (
+                    false,
+                    "The image description cannot exceed 500 characters.");
+            }
+
+            var validationError = ValidateImage(image);
+
+            if (validationError is not null)
+            {
+                return (false, validationError);
+            }
+
+            var uploadFolder = Path.Combine(
+                _environment.WebRootPath,
+                "uploads",
+                "gallery");
+
+            Directory.CreateDirectory(uploadFolder);
+
+            var extension = Path.GetExtension(
+                image!.FileName)
+                .ToLowerInvariant();
+
+            var uniqueFileName =
+                $"{Guid.NewGuid():N}{extension}";
+
+            var physicalFilePath = Path.Combine(
+                uploadFolder,
+                uniqueFileName);
+
             await using (var fileStream = new FileStream(
                 physicalFilePath,
                 FileMode.CreateNew,
@@ -127,12 +118,10 @@ public sealed class GalleryService : IGalleryService
 
             return (true, null);
         }
-        catch
+        catch (Exception ex)
         {
-            if (File.Exists(physicalFilePath))
-            {
-                File.Delete(physicalFilePath);
-            }
+            Console.WriteLine(
+                $"Gallery upload failed: {ex}");
 
             throw;
         }
@@ -160,13 +149,7 @@ public sealed class GalleryService : IGalleryService
                 "Only JPG, JPEG, PNG, GIF and WEBP images are allowed.";
         }
 
-        if (!AllowedContentTypes.Contains(
-                image.ContentType))
-        {
-            return
-                "The uploaded file must be a valid image type.";
-        }
-
         return null;
     }
 }
+
