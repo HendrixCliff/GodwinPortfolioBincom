@@ -6,5 +6,5 @@ public sealed class HomeIndexViewModel
 {
     public PortfolioProfile Profile { get; init; } = new();
 
-    public List<GalleryItem> GalleryItems { get; init; } = [];
+   
 }

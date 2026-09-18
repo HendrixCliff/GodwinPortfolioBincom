@@ -24,7 +24,7 @@ public sealed class HomeController : Controller
         var model = new HomeIndexViewModel
         {
             Profile = PortfolioData.BuildProfile(),
-            GalleryItems = await _galleryService.GetAllAsync()
+            
         };
 
         return View(model);
