@@ -8,11 +8,11 @@ public sealed class CompanyContact
 
     [Required]
     [StringLength(150)]
-    public string CompanyName { get; set; } = "CoffeBean Devs";
+    public string CompanyName { get; set; } = "CoffeeBean Devs";
 
     [StringLength(1000)]
     public string Description { get; set; } =
-        "CoffeBean Devs builds modern software solutions, web applications, and digital products using reliable and scalable technologies.";
+        "CoffeeBean Devs builds modern software solutions, web applications, and digital products using reliable and scalable technologies.";
 
     [Required]
     [EmailAddress]
