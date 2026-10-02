@@ -26,7 +26,7 @@ public sealed class ApplicationDbContext : DbContext
     public DbSet<GalleryItem> GalleryItems => Set<GalleryItem>();
     public DbSet<Article> Articles { get; set; }
 
-    public DbSet<CompanyContact> CompanyContacts { get; set; } = null!;
+    public DbSet<CompanyContact> CompanyContacts { get; set; }
 
     protected override void OnModelCreating(
       ModelBuilder modelBuilder)
@@ -54,6 +54,47 @@ public sealed class ApplicationDbContext : DbContext
 
             entity.Property(x => x.Content)
                 .IsRequired();
+        });
+        modelBuilder.Entity<CompanyContact>(entity =>
+        {
+            entity.ToTable("CompanyContacts");
+
+            entity.HasKey(x => x.Id);
+
+            entity.Property(x => x.CompanyName)
+                .IsRequired()
+                .HasMaxLength(150);
+
+            entity.Property(x => x.Description)
+                .HasMaxLength(1000);
+
+            entity.Property(x => x.Email)
+                .IsRequired()
+                .HasMaxLength(200);
+
+            entity.Property(x => x.Phone)
+                .HasMaxLength(50);
+
+            entity.Property(x => x.Address)
+                .HasMaxLength(300);
+
+            entity.Property(x => x.City)
+                .HasMaxLength(100);
+
+            entity.Property(x => x.Country)
+                .HasMaxLength(100);
+
+            entity.Property(x => x.Website)
+                .HasMaxLength(200);
+
+            entity.Property(x => x.LinkedInUrl)
+                .HasMaxLength(200);
+
+            entity.Property(x => x.GitHubUrl)
+                .HasMaxLength(200);
+
+            entity.Property(x => x.BusinessHours)
+                .HasMaxLength(200);
         });
     }
 }
