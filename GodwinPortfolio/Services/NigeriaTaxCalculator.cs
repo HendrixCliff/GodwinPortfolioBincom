@@ -47,42 +47,42 @@ public sealed class NigeriaTaxCalculator
         decimal remaining = taxableIncome;
         decimal tax = 0;
 
-        // First ₦800,000 at 0%
+        
         remaining = ApplyBand(
             remaining,
             800_000m,
             0m,
             ref tax);
 
-        // Next ₦2,200,000 at 15%
+       
         remaining = ApplyBand(
             remaining,
             2_200_000m,
             0.15m,
             ref tax);
 
-        // Next ₦9,000,000 at 18%
+      
         remaining = ApplyBand(
             remaining,
             9_000_000m,
             0.18m,
             ref tax);
 
-        // Next ₦13,000,000 at 21%
+       
         remaining = ApplyBand(
             remaining,
             13_000_000m,
             0.21m,
             ref tax);
 
-        // Next ₦25,000,000 at 23%
+    
         remaining = ApplyBand(
             remaining,
             25_000_000m,
             0.23m,
             ref tax);
 
-        // Above ₦50,000,000 at 25%
+       
         if (remaining > 0)
         {
             tax += remaining * 0.25m;

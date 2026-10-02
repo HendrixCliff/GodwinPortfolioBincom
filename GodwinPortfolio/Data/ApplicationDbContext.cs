@@ -23,9 +23,16 @@ public sealed class ApplicationDbContext : DbContext
 
     }
 
-
-
     public DbSet<GalleryItem> GalleryItems => Set<GalleryItem>();
+    public DbSet<Article> Articles { get; set; } = null!;
 
-}
+    public DbSet<CompanyContact> CompanyContacts { get; set; } = null!;
 
+    protected override void OnModelCreating(
+        ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<Article>()
+    .HasIndex(x => x.Slug)
+    .IsUnique();
+    }
+  }

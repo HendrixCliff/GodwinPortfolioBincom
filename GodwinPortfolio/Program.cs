@@ -1,4 +1,5 @@
 using GodwinPortfolio.Data;
+using GodwinPortfolio.Repositories;
 using GodwinPortfolio.Services;
 using Microsoft.EntityFrameworkCore;
 
@@ -7,6 +8,12 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddScoped<IGalleryService, GalleryService>();
 
 builder.Services.AddControllersWithViews();
+builder.Services.AddScoped<IArticleRepository, ArticleRepository>();
+builder.Services.AddScoped<IArticleService, ArticleService>();
+
+builder.Services.AddScoped< ICompanyContactRepository, CompanyContactRepository>();
+
+builder.Services.AddScoped< ICompanyContactService, CompanyContactService>();
 
 builder.Services.AddSingleton<NigeriaTaxCalculator>();
 

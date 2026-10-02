@@ -1,0 +1,36 @@
+﻿@model GodwinPortfolio.DTOs.Article.ArticleResponse
+
+@{
+    ViewData["Title"] = Model.Title;
+}
+
+<div class="container py-5">
+    <article class="mx-auto" style="max-width: 900px;">
+        <div class="mb-4">
+            <small class="text-muted">
+                @(Model.PublishedAt?.ToString("dd MMMM yyyy"))
+            </small>
+
+            <h1 class="display-4 fw-bold mt-2">
+                @Model.Title
+            </h1>
+
+            <p class="lead text-muted">
+                @Model.Summary
+            </p>
+        </div>
+
+        <hr />
+
+        <div class="article-content">
+            @Html.Raw(Model.Content)
+        </div>
+
+        <div class="mt-5">
+            <a asp-action="Index"
+               class="btn btn-outline-secondary">
+                Back to Articles
+            </a>
+        </div>
+    </article>
+</div>
