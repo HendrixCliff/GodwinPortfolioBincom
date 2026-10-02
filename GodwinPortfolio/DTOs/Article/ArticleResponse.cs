@@ -1,4 +1,4 @@
-﻿namespace GodwinPortfolio.DTOs.Article;
+﻿namespace GodwinPortfolio.DTOs;
 
 public sealed class ArticleResponse
 {

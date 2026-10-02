@@ -1,5 +1,4 @@
 ﻿using GodwinPortfolio.Data;
-using GodwinPortfolio.Repositories;
 using GodwinPortfolio.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -19,8 +18,7 @@ public sealed class ArticleRepository : IArticleRepository
     {
         return await _context.Articles
             .AsNoTracking()
-            .OrderByDescending(x => x.PublishedAt)
-            .ThenByDescending(x => x.CreatedAt)
+            .OrderByDescending(x => x.CreatedAt)
             .ToListAsync(cancellationToken);
     }
 
@@ -66,6 +64,7 @@ public sealed class ArticleRepository : IArticleRepository
     public async Task SaveChangesAsync(
         CancellationToken cancellationToken = default)
     {
-        await _context.SaveChangesAsync(cancellationToken);
+        await _context.SaveChangesAsync(
+            cancellationToken);
     }
 }

@@ -1,0 +1,172 @@
+﻿@model GodwinPortfolio.DTOs.ArticleRequest
+
+@{
+    ViewData["Title"] = "Create Article";
+}
+
+<div class="container py-5">
+
+    <div class="row justify-content-center">
+
+        <div class="col-lg-9">
+
+            <div class="d-flex justify-content-between align-items-center mb-4">
+
+                <div>
+                    <h1 class="display-6 fw-bold">
+                        Create Article
+                    </h1>
+
+                    <p class="text-muted mb-0">
+                        Write and publish a new article.
+                    </p>
+                </div>
+
+                <a asp-area="Admin"
+                   asp-controller="Articles"
+                   asp-action="Index"
+                   class="btn btn-outline-secondary">
+                    Back
+                </a>
+
+            </div>
+
+            <div class="card border-0 shadow-sm">
+
+                <div class="card-body p-4">
+
+                    <form asp-area="Admin"
+                          asp-controller="Articles"
+                          asp-action="Create"
+                          method="post">
+
+                        @Html.AntiForgeryToken()
+
+                        <div asp-validation-summary="ModelOnly"
+                             class="alert alert-danger">
+                        </div>
+
+                        <div class="mb-4">
+
+                            <label asp-for="Title"
+                                   class="form-label fw-semibold">
+                                Article Title
+                            </label>
+
+                            <input asp-for="Title"
+                                   class="form-control form-control-lg"
+                                   placeholder="Enter article title" />
+
+                            <span asp-validation-for="Title"
+                                  class="text-danger">
+                            </span>
+
+                        </div>
+
+                        <div class="mb-4">
+
+                            <label asp-for="Slug"
+                                   class="form-label fw-semibold">
+                                Slug
+                            </label>
+
+                            <input asp-for="Slug"
+                                   class="form-control"
+                                   placeholder="my-first-article" />
+
+                            <div class="form-text">
+                                Example:
+                                building-modern-aspnet-core-applications
+                            </div>
+
+                            <span asp-validation-for="Slug"
+                                  class="text-danger">
+                            </span>
+
+                        </div>
+
+                        <div class="mb-4">
+
+                            <label asp-for="Summary"
+                                   class="form-label fw-semibold">
+                                Summary
+                            </label>
+
+                            <textarea asp-for="Summary"
+                                      class="form-control"
+                                      rows="4"
+                                      placeholder="Write a short summary of the article"></textarea>
+
+                            <span asp-validation-for="Summary"
+                                  class="text-danger">
+                            </span>
+
+                        </div>
+
+                        <div class="mb-4">
+
+                            <label asp-for="Content"
+                                   class="form-label fw-semibold">
+                                Article Content
+                            </label>
+
+                            <textarea asp-for="Content"
+                                      class="form-control"
+                                      rows="18"
+                                      placeholder="Write your article content here"></textarea>
+
+                            <div class="form-text">
+                                HTML content can be used because the public
+                                article page renders trusted content as HTML.
+                            </div>
+
+                            <span asp-validation-for="Content"
+                                  class="text-danger">
+                            </span>
+
+                        </div>
+
+                        <div class="form-check form-switch mb-4">
+
+                            <input asp-for="IsPublished"
+                                   class="form-check-input"
+                                   role="switch" />
+
+                            <label asp-for="IsPublished"
+                                   class="form-check-label">
+                                Publish this article immediately
+                            </label>
+
+                        </div>
+
+                        <div class="d-flex gap-2">
+
+                            <button type="submit"
+                                    class="btn btn-primary">
+                                Create Article
+                            </button>
+
+                            <a asp-area="Admin"
+                               asp-controller="Articles"
+                               asp-action="Index"
+                               class="btn btn-outline-secondary">
+                                Cancel
+                            </a>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

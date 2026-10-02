@@ -1,0 +1,168 @@
+﻿@model IReadOnlyList<GodwinPortfolio.DTOs.ArticleResponse>
+
+@{
+    ViewData["Title"] = "Manage Articles";
+}
+
+<div class="container py-5">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+            <h1 class="display-6 fw-bold">
+                Manage Articles
+            </h1>
+
+            <p class="text-muted mb-0">
+                Create, edit, publish and delete your articles.
+            </p>
+        </div>
+
+        <a asp-area="Admin"
+           asp-controller="Articles"
+           asp-action="Create"
+           class="btn btn-primary">
+            Create Article
+        </a>
+
+    </div>
+
+    @if (TempData["SuccessMessage"] is string successMessage)
+    {
+        <div class="alert alert-success">
+            @successMessage
+        </div>
+    }
+
+    @if (Model.Count == 0)
+    {
+        <div class="card border-0 shadow-sm">
+            <div class="card-body text-center py-5">
+
+                <h2 class="h4">
+                    No articles yet
+                </h2>
+
+                <p class="text-muted">
+                    Create your first article to get started.
+                </p>
+
+                <a asp-area="Admin"
+                   asp-controller="Articles"
+                   asp-action="Create"
+                   class="btn btn-primary">
+                    Create Your First Article
+                </a>
+
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="card border-0 shadow-sm">
+
+            <div class="table-responsive">
+
+                <table class="table table-hover align-middle mb-0">
+
+                    <thead class="table-dark">
+
+                        <tr>
+                            <th>Title</th>
+                            <th>Slug</th>
+                            <th>Status</th>
+                            <th>Created</th>
+                            <th class="text-end">Actions</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        @foreach (var article in Model)
+                        {
+                            <tr>
+
+                                <td>
+                                    <strong>
+                                        @article.Title
+                                    </strong>
+
+                                    <div class="small text-muted">
+                                        @article.Summary
+                                    </div>
+                                </td>
+
+                                <td>
+                                    <code>
+                                        @article.Slug
+                                    </code>
+                                </td>
+
+                                <td>
+                                    @if (article.IsPublished)
+                                    {
+                                        <span class="badge bg-success">
+                                            Published
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-secondary">
+                                            Draft
+                                        </span>
+                                    }
+                                </td>
+
+                                <td>
+                                    @article.CreatedAt.ToLocalTime()
+                                    
+                                </td>
+
+                                <td class="text-end">
+
+                                    <div class="btn-group">
+
+                                        @if (article.IsPublished)
+                                        {
+                                            <a asp-controller="Articles"
+                                               asp-action="Details"
+                                               asp-route-slug="@article.Slug"
+                                               class="btn btn-sm btn-outline-primary">
+                                                View
+                                            </a>
+                                        }
+
+                                        <a asp-area="Admin"
+                                           asp-controller="Articles"
+                                           asp-action="Edit"
+                                           asp-route-id="@article.Id"
+                                           class="btn btn-sm btn-outline-secondary">
+                                            Edit
+                                        </a>
+
+                                        <a asp-area="Admin"
+                                           asp-controller="Articles"
+                                           asp-action="Delete"
+                                           asp-route-id="@article.Id"
+                                           class="btn btn-sm btn-outline-danger">
+                                            Delete
+                                        </a>
+
+                                    </div>
+
+                                </td>
+
+                            </tr>
+                        }
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+    }
+
+</div>

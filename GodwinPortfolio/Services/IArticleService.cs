@@ -1,5 +1,4 @@
-﻿using GodwinPortfolio.DTOs.Article;
-
+﻿using GodwinPortfolio.DTOs;
 
 namespace GodwinPortfolio.Services;
 
@@ -14,6 +13,13 @@ public interface IArticleService
 
     Task<ArticleResponse?> GetBySlugAsync(
         string slug,
+        CancellationToken cancellationToken = default);
+
+    Task<IReadOnlyList<ArticleResponse>> GetAllForAdminAsync(
+        CancellationToken cancellationToken = default);
+
+    Task<ArticleResponse?> GetByIdForAdminAsync(
+        int id,
         CancellationToken cancellationToken = default);
 
     Task<ArticleResponse?> CreateAsync(

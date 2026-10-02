@@ -7,15 +7,15 @@ public sealed class Article
     public int Id { get; set; }
 
     [Required]
-    [StringLength(200)]
+    [MaxLength(200)]
     public string Title { get; set; } = string.Empty;
 
     [Required]
-    [StringLength(250)]
+    [MaxLength(250)]
     public string Slug { get; set; } = string.Empty;
 
     [Required]
-    [StringLength(500)]
+    [MaxLength(500)]
     public string Summary { get; set; } = string.Empty;
 
     [Required]

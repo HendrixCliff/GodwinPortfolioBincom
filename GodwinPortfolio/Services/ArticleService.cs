@@ -1,8 +1,6 @@
-﻿using GodwinPortfolio.DTOs.Article;
-using GodwinPortfolio.Repositories;
-using GodwinPortfolio.Services;
+﻿using GodwinPortfolio.DTOs;
 using GodwinPortfolio.Models;
-
+using GodwinPortfolio.Repositories;
 
 namespace GodwinPortfolio.Services;
 
@@ -18,7 +16,8 @@ public sealed class ArticleService : IArticleService
     public async Task<IReadOnlyList<ArticleResponse>> GetAllAsync(
         CancellationToken cancellationToken = default)
     {
-        var articles = await _repository.GetAllAsync(cancellationToken);
+        var articles = await _repository.GetAllAsync(
+            cancellationToken);
 
         return articles
             .Where(x => x.IsPublished)
@@ -58,6 +57,33 @@ public sealed class ArticleService : IArticleService
         return MapToResponse(article);
     }
 
+    public async Task<IReadOnlyList<ArticleResponse>> GetAllForAdminAsync(
+        CancellationToken cancellationToken = default)
+    {
+        var articles = await _repository.GetAllAsync(
+            cancellationToken);
+
+        return articles
+            .Select(MapToResponse)
+            .ToList();
+    }
+
+    public async Task<ArticleResponse?> GetByIdForAdminAsync(
+        int id,
+        CancellationToken cancellationToken = default)
+    {
+        var article = await _repository.GetByIdAsync(
+            id,
+            cancellationToken);
+
+        if (article is null)
+        {
+            return null;
+        }
+
+        return MapToResponse(article);
+    }
+
     public async Task<ArticleResponse?> CreateAsync(
         ArticleRequest request,
         CancellationToken cancellationToken = default)
@@ -83,7 +109,9 @@ public sealed class ArticleService : IArticleService
             Content = request.Content.Trim(),
             CreatedAt = now,
             IsPublished = request.IsPublished,
-            PublishedAt = request.IsPublished ? now : null
+            PublishedAt = request.IsPublished
+                ? now
+                : null
         };
 
         await _repository.AddAsync(
@@ -116,7 +144,8 @@ public sealed class ArticleService : IArticleService
             slug,
             cancellationToken);
 
-        if (existing is not null && existing.Id != id)
+        if (existing is not null &&
+            existing.Id != id)
         {
             return null;
         }

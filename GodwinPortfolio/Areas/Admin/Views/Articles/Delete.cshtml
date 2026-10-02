@@ -1,0 +1,93 @@
+﻿@model GodwinPortfolio.DTOs.ArticleResponse
+
+@{
+    ViewData["Title"] = "Delete Article";
+}
+
+<div class="container py-5">
+
+    <div class="row justify-content-center">
+
+        <div class="col-lg-7">
+
+            <div class="card border-0 shadow-sm">
+
+                <div class="card-body p-5">
+
+                    <div class="text-center mb-4">
+
+                        <div class="display-5 text-danger mb-3">
+                            ⚠
+                        </div>
+
+                        <h1 class="h2 fw-bold">
+                            Delete Article
+                        </h1>
+
+                        <p class="text-muted">
+                            Are you sure you want to permanently delete
+                            this article?
+                        </p>
+
+                    </div>
+
+                    <div class="bg-light rounded p-4 mb-4">
+
+                        <h2 class="h4">
+                            @Model.Title
+                        </h2>
+
+                        <p class="text-muted mb-2">
+                            @Model.Summary
+                        </p>
+
+                        @if (Model.IsPublished)
+                        {
+                            <span class="badge bg-success">
+                                Published
+                            </span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-secondary">
+                                Draft
+                            </span>
+                        }
+
+                    </div>
+
+                    <form asp-area="Admin"
+                          asp-controller="Articles"
+                          asp-action="Delete"
+                          asp-route-id="@Model.Id"
+                          method="post">
+
+                        @Html.AntiForgeryToken()
+
+                        <div class="d-flex justify-content-center gap-2">
+
+                            <button type="submit"
+                                    class="btn btn-danger">
+                                Yes, Delete Article
+                            </button>
+
+                            <a asp-area="Admin"
+                               asp-controller="Articles"
+                               asp-action="Index"
+                               class="btn btn-outline-secondary">
+                                Cancel
+                            </a>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

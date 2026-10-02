@@ -1,19 +1,19 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace GodwinPortfolio.DTOs.Article;
+namespace GodwinPortfolio.DTOs;
 
 public sealed class ArticleRequest
 {
     [Required]
-    [StringLength(200)]
+    [MaxLength(200)]
     public string Title { get; set; } = string.Empty;
 
     [Required]
-    [StringLength(250)]
+    [MaxLength(250)]
     public string Slug { get; set; } = string.Empty;
 
     [Required]
-    [StringLength(500)]
+    [MaxLength(500)]
     public string Summary { get; set; } = string.Empty;
 
     [Required]
